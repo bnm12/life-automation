@@ -16,9 +16,9 @@ const routes = [
 
 
 for (const route of routes) {
-    const path = route.path + `/${process.env.RANDOM_STRING}`;
-    console.log(`Registered route: [${route.method.toUpperCase()}] ${path}`)
-    router[route.method](path , route.handler)
+  const path = route.path + `/${process.env.RANDOM_STRING}`;
+  console.log(`Registered route: [${route.method.toUpperCase()}] ${path}`)
+  router[route.method](path, route.handler)
 }
 
 
