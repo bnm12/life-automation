@@ -23,15 +23,16 @@ export default {
                         num_minutes: 60 * 4
                     });
                     await axios.patch("https://discord.com/api/v8/users/@me/settings", {
+                        "status": "dnd",
                         "custom_status": {
-                            "text": "Sleeping",
-                            "expires_at": Date.now() + (4*60*60*1000), // Add 4 hours
-                            "emoji_name": "😴"
+                            "text": "Sleeping for 20 min to 3 hours",
+                            "expires_at": new Date(Date.now() + (4*60*60*1000)).toISOString(), // Add 4 hours
+                            "emoji_name": "💤"
                         }
                     },
                         {
                             headers: {
-                                authorization: process.env.DISCORD_TOKEN
+                                "authorization": process.env.DISCORD_TOKEN
                             }
                         });
                     break;
@@ -47,11 +48,12 @@ export default {
                     });
                     await slack.dnd.endDnd();
                     await axios.patch("https://discord.com/api/v8/users/@me/settings", {
+                        "status": "online",
                         "custom_status": null
                     },
                         {
                             headers: {
-                                authorization: process.env.DISCORD_TOKEN
+                                "authorization": process.env.DISCORD_TOKEN
                             }
                         });
                     break;
