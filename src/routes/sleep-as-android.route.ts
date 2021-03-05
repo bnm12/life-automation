@@ -25,7 +25,7 @@ export default {
                     await axios.patch("https://discord.com/api/v8/users/@me/settings", {
                         "status": "dnd",
                         "custom_status": {
-                            "text": "Sleeping for 20 min to 3 hours",
+                            "text": "Taking a nap for 20 min or 3 hours",
                             "expires_at": new Date(Date.now() + (4*60*60*1000)).toISOString(), // Add 4 hours
                             "emoji_name": "💤"
                         }
