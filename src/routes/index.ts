@@ -9,9 +9,11 @@ router.use(function timeLog(req, res, next) {
 });
 
 import sleepRoute from "./sleep-as-android.route";
+import carRoute from "./car-mode.route";
 
 const routes = [
     sleepRoute,
+    carRoute
 ]
 
 

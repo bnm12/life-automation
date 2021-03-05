@@ -8,7 +8,7 @@ export default {
   method: 'post',
   handler: async (request, response) => {
     try {
-      if (request.body) {
+      if (request.body.status) {
         await slack.users.setPresence({
           presence: 'away',
         });
