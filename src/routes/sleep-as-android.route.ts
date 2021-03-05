@@ -1,5 +1,7 @@
 import { RouteDefinition } from "./routeInterface";
 import { WebClient } from '@slack/web-api';
+import axios from "axios";
+
 const slack = new WebClient(process.env.SLACK_TOKEN);
 
 export default {
@@ -20,6 +22,18 @@ export default {
                     await slack.dnd.setSnooze({
                         num_minutes: 60 * 4
                     });
+                    await axios.patch("https://discord.com/api/v8/users/@me/settings", {
+                        "custom_status": {
+                            "text": "Sleeping",
+                            "expires_at": Date.now() + (4*60*60*1000), // Add 4 hours
+                            "emoji_name": "😴"
+                        }
+                    },
+                        {
+                            headers: {
+                                authorization: process.env.DISCORD_TOKEN
+                            }
+                        });
                     break;
                 case "sleep_tracking_stopped":
                     await slack.users.setPresence({
@@ -32,6 +46,14 @@ export default {
                         })
                     });
                     await slack.dnd.endDnd();
+                    await axios.patch("https://discord.com/api/v8/users/@me/settings", {
+                        "custom_status": null
+                    },
+                        {
+                            headers: {
+                                authorization: process.env.DISCORD_TOKEN
+                            }
+                        });
                     break;
                 default:
                     break;
