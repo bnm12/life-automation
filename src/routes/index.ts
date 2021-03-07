@@ -4,9 +4,10 @@ const router = express.Router();
 
 // Middle ware that is specific to this router
 router.use(function timeLog(req, res, next) {
-  req.log.info("test");
+  console.log('Time: ', Date.now());
   next();
 });
+
 
 import sleepRoute from "./sleep-as-android.route";
 import carRoute from "./car-mode.route";
