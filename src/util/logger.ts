@@ -1,6 +1,3 @@
 import pino from "pino";
 
-export const logger = pino({
-  name: 'app-name',
-  level: 'info'
-});
+export const logger = pino();

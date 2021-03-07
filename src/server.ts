@@ -14,12 +14,13 @@ import routes from "./routes";
 const app = express()
 const PORT = process.env.PORT
 
+app.use(pino({logger}));
+
 // Tell express to use body-parser's JSON parsing
 app.use(bodyParser.json())
 
 app.use(routes)
 
-app.use(pino({logger}));
 
 // Start express on the defined port
 app.listen(PORT, () => {
