@@ -7,6 +7,7 @@ const slack = new WebClient(process.env.SLACK_TOKEN);
 export default {
   method: 'post',
   handler: async (request, response) => {
+      request.log.info(request.body);
     try {
       if (request.body.status) {
         await slack.users.setPresence({

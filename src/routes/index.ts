@@ -1,4 +1,5 @@
 import express from 'express';
+import pino from "express-pino-logger";
 
 const router = express.Router();
 
@@ -7,6 +8,8 @@ router.use(function timeLog(req, res, next) {
   console.log('Time: ', Date.now());
   next();
 });
+
+router.use(pino);
 
 import sleepRoute from "./sleep-as-android.route";
 import carRoute from "./car-mode.route";
