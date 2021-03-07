@@ -1,4 +1,7 @@
 import * as dotenv from "dotenv";
+import pino from "express-pino-logger";
+import { logger } from "./util/logger";
+
 
 dotenv.config();
 
@@ -15,6 +18,8 @@ const PORT = process.env.PORT
 app.use(bodyParser.json())
 
 app.use(routes)
+
+app.use(pino({logger}));
 
 // Start express on the defined port
 app.listen(PORT, () => {
