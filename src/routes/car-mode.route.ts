@@ -1,9 +1,6 @@
 import { RouteDefinition } from './routeInterface';
-import { WebClient } from '@slack/web-api';
-import axios from 'axios';
 import { resetSlackStatus, setSlackStatus } from '../services/slack-wrapper';
-
-const slack = new WebClient(process.env.SLACK_TOKEN);
+import { resetDiscordStatus, setDiscordStatus } from '../services/discord';
 
 export default {
   method: 'post',
@@ -17,39 +14,15 @@ export default {
           'away',
           0
         );
-
-        await axios.patch(
-          'https://discord.com/api/v8/users/@me/settings',
-          {
-            status: 'idle',
-            custom_status: {
-              text: 'Out driving expect slow responses',
-              expires_at: new Date(
-                Date.now() + 24 * 60 * 60 * 1000
-              ).toISOString(), // Expire tomorrow if we don't expire it before then
-              emoji_name: '🚗',
-            },
-          },
-          {
-            headers: {
-              authorization: process.env.DISCORD_TOKEN,
-            },
-          }
+        await setDiscordStatus(
+          '🚗',
+          'Out driving, expect slow responses',
+          'online',
+          24 * 60
         );
       } else {
         await resetSlackStatus();
-        await axios.patch(
-          'https://discord.com/api/v8/users/@me/settings',
-          {
-            status: 'online',
-            custom_status: null,
-          },
-          {
-            headers: {
-              authorization: process.env.DISCORD_TOKEN,
-            },
-          }
-        );
+        await resetDiscordStatus();
       }
       response.status(200).send(request.body).end(); // Responding is important
     } catch (error) {
