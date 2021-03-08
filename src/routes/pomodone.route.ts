@@ -11,7 +11,7 @@ export default {
         try {
             switch (request.body.action) {
                 case "timerStart":
-                    const minutes = request.body.timer.minutesOfDuration;
+                    const minutes = request.body.timer.value;
                     const taskTitle = request.body.card.title;
                     await slack.users.setPresence({
                         "presence": "auto"
