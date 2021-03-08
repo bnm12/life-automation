@@ -1,24 +1,23 @@
 import { RouteDefinition } from './routeInterface';
 import { WebClient } from '@slack/web-api';
 import axios from 'axios';
+import { resetSlackStatus, setSlackStatus } from '../services/slack-wrapper';
 
 const slack = new WebClient(process.env.SLACK_TOKEN);
 
 export default {
   method: 'post',
   handler: async (request, response) => {
-      request.log.info(request.body);
+    request.log.info(request.body);
     try {
       if (request.body.status) {
-        await slack.users.setPresence({
-          presence: 'away',
-        });
-        await slack.users.profile.set({
-          profile: JSON.stringify({
-            status_emoji: ':car:',
-            status_text: 'Out driving expect slow responses',
-          }),
-        });
+        await setSlackStatus(
+          ':car:',
+          'Out driving, expect slow responses',
+          'away',
+          0
+        );
+
         await axios.patch(
           'https://discord.com/api/v8/users/@me/settings',
           {
@@ -38,15 +37,7 @@ export default {
           }
         );
       } else {
-        await slack.users.setPresence({
-          presence: 'auto',
-        });
-        await slack.users.profile.set({
-          profile: JSON.stringify({
-            status_emoji: '',
-            status_text: '',
-          }),
-        });
+        await resetSlackStatus();
         await axios.patch(
           'https://discord.com/api/v8/users/@me/settings',
           {
