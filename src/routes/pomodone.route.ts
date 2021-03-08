@@ -29,7 +29,7 @@ export default {
                     await axios.patch("https://discord.com/api/v8/users/@me/settings", {
                         "status": "dnd",
                         "custom_status": {
-                            "text": `Doing focused work next break at: ${expireTime.toLocaleTimeString("da-dk")}`,
+                            "text": `Doing focused work next break at: ${expireTime.toLocaleTimeString("en-GB", { hour: '2-digit', minute: '2-digit' })}`,
                             "expires_at": expireTime.toISOString(),
                             "emoji_name": "🍅"
                         }
