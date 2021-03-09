@@ -7,12 +7,13 @@ export default {
   handler: async (request, response) => {
     request.log.info(request.body);
     try {
-      const minutes = request.body.timer.value;
       const taskTitle = request.body.card.title; // TODO: might not have a card
+      const minutes = (request.body.timer?.duration ?? request.body.time_remaining ?? 0) / 60;
       const expireTime = new Date(Date.now() + minutes * 60 * 1000);
 
       switch (request.body.action) {
         case 'timerStart':
+
           await setSlackStatus(
             ':tomato:',
             `on "${taskTitle}" for ${minutes} min. DND please`,
