@@ -15,6 +15,7 @@ export const setSlackStatus = async (
     profile: JSON.stringify({
       status_emoji: emoji,
       status_text: message,
+      status_expiration: dndMinutes ? new Date(Date.now() + dndMinutes * 60 * 1000) : 0
     }),
   });
   if (dndMinutes) {
