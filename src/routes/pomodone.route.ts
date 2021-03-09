@@ -8,7 +8,7 @@ export default {
     request.log.info(request.body);
     try {
       const taskTitle = request.body.card.title; // TODO: might not have a card
-      const minutes = (request.body.timer?.duration ?? request.body.time_remaining ?? 0) / 60;
+      const minutes = Math.ceil((request.body.timer?.duration ?? request.body.time_remaining ?? 0) / 60);
       const expireTime = new Date(Date.now() + minutes * 60 * 1000);
 
       switch (request.body.action) {
