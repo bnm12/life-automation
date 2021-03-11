@@ -18,7 +18,7 @@ export const setSlackStatus = async (
       status_emoji: emoji,
       status_text: message,
       status_expiration: dndMinutes
-        ? new Date(Date.now() + dndMinutes * 60 * 1000)
+        ? new Date(Date.now() + dndMinutes * 60 * 1000).getTime()
         : 0,
     }),
   });
