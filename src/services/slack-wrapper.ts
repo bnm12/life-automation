@@ -18,9 +18,11 @@ export const setSlackStatus = async (
     profile: JSON.stringify({
       status_emoji: emoji,
       status_text: message,
-      status_expiration: Math.floor(
-        new Date(Date.now() + minutes * 60 * 1000).getTime() / 1000
-      ),
+      status_expiration: minutes
+        ? Math.floor(
+            new Date(Date.now() + minutes * 60 * 1000).getTime() / 1000
+          )
+        : null,
     }),
   });
   if (dnd) {
