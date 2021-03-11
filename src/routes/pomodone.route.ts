@@ -5,7 +5,7 @@ import { resetDiscordStatus, setDiscordStatus } from '../services/discord';
 export default {
   method: 'post',
   handler: async (request, response) => {
-    request.log.info(request.body);
+    request.log.info(request.body, request.body.action);
     response.status(200).send(request.body).end(); // Responding is important
     try {
       const taskTitle = request.body.card.title; // TODO: might not have a card

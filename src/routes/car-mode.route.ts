@@ -5,7 +5,7 @@ import { resetDiscordStatus, setDiscordStatus } from '../services/discord';
 export default {
   method: 'post',
   handler: async (request, response) => {
-    request.log.info(request.body);
+    request.log.info(request.body, request.body.status);
     response.status(200).send(request.body).end(); // Responding is important
     try {
       if (request.body.status) {
