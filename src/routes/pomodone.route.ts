@@ -63,7 +63,8 @@ export default {
             ':tomato:',
             `on "${taskTitle}" for ${minutes} min. DND please`,
             'auto',
-            minutes
+            minutes,
+            true
           );
 
           await setDiscordStatus(
@@ -83,7 +84,8 @@ export default {
             ':white_check_mark:',
             `just completed "${taskTitle}"`,
             'auto',
-            5
+            5,
+            false
           );
 
           await setDiscordStatus('✅', `Just finished focus task`, 'online', 5);

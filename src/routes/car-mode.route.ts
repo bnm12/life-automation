@@ -13,7 +13,8 @@ export default {
           ':car:',
           'Out driving, expect slow responses',
           'away',
-          0
+          0,
+          false
         );
         await setDiscordStatus(
           '🚗',
