@@ -7,9 +7,10 @@ export const setSlackStatus = async (
   emoji: string,
   message: string,
   presence: 'away' | 'auto',
-  dndMinutes: number
+  minutes: number,
+  dnd: boolean
 ): Promise<void> => {
-  logger.info({ emoji, message, presence, dndMinutes }, 'Set Slack status');
+  logger.info({ emoji, message, presence, minutes, dnd }, 'Set Slack status');
   await slack.users.setPresence({
     presence,
   });
@@ -17,16 +18,14 @@ export const setSlackStatus = async (
     profile: JSON.stringify({
       status_emoji: emoji,
       status_text: message,
-      status_expiration: dndMinutes
-        ? Math.floor(
-            new Date(Date.now() + dndMinutes * 60 * 1000).getTime() / 1000
-          )
-        : 0,
+      status_expiration: Math.floor(
+        new Date(Date.now() + minutes * 60 * 1000).getTime() / 1000
+      ),
     }),
   });
-  if (dndMinutes) {
+  if (dnd) {
     await slack.dnd.setSnooze({
-      num_minutes: dndMinutes,
+      num_minutes: minutes,
     });
   } else {
     await slack.dnd.endDnd();
@@ -35,5 +34,5 @@ export const setSlackStatus = async (
 
 export const resetSlackStatus = async () => {
   logger.info('Reset Slack status');
-  await setSlackStatus('', '', 'auto', 0);
+  await setSlackStatus('', '', 'auto', 1, false);
 };

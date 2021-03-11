@@ -14,7 +14,8 @@ export default {
             ':zzz:',
             'Taking a nap for 20 min or 3 hours',
             'away',
-            60 * 4
+            60 * 4,
+            true
           );
           await setDiscordStatus(
             '💤',

@@ -5,16 +5,18 @@ export const setDiscordStatus = async (
   emoji: string,
   message: string,
   status: 'dnd' | 'online',
-  dndMinutes: number
+  minutes: number
 ): Promise<void> => {
-  logger.info({ emoji, message, status, dndMinutes }, 'Set Discord status');
+  logger.info({ emoji, message, status, minutes }, 'Set Discord status');
   await axios.patch(
     'https://discord.com/api/v8/users/@me/settings',
     {
       status,
       custom_status: {
         text: message,
-        expires_at: new Date(Date.now() + dndMinutes * 60 * 1000).toISOString(),
+        expires_at: minutes
+          ? new Date(Date.now() + minutes * 60 * 1000).toISOString()
+          : null,
         emoji_name: emoji,
       },
     },

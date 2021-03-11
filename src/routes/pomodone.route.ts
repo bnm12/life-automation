@@ -20,7 +20,8 @@ export default {
             ':tomato:',
             `on "${taskTitle}" for ${minutes} min. DND please`,
             'auto',
-            minutes
+            minutes,
+            true
           );
 
           await setDiscordStatus(
@@ -42,7 +43,8 @@ export default {
             ':stopwatch:',
             `on "${taskTitle}" (PAUSED)`,
             'auto',
-            0
+            0,
+            true
           );
 
           await setDiscordStatus(
