@@ -25,7 +25,7 @@ export default {
 
           await setDiscordStatus(
             '🍅',
-            `Doing focused work right now. Next break at: ${expireTime.getHours}:${expireTime.getMinutes}. DND please`,
+            `Doing focused work right now. Next break at: ${expireTime.getHours()}:${expireTime.getMinutes()}. DND please`,
             'dnd',
             minutes
           );
