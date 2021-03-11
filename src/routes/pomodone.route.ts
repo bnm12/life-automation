@@ -25,7 +25,14 @@ export default {
 
           await setDiscordStatus(
             '🍅',
-            `Doing focused work right now. Next break at: ${expireTime.getHours()}:${expireTime.getMinutes()}. DND please`,
+            `Doing focused work right now. Next break at: ${expireTime.toLocaleTimeString(
+              'en-GB',
+              {
+                timeZone: process.env.TIMEZONE_NAME,
+                hour: '2-digit',
+                minute: '2-digit',
+              }
+            )}. DND please`,
             'dnd',
             minutes
           );
