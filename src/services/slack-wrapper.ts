@@ -1,4 +1,5 @@
 import { WebClient } from '@slack/web-api';
+import { logger } from '../util/logger';
 
 const slack = new WebClient(process.env.SLACK_TOKEN);
 
@@ -8,6 +9,7 @@ export const setSlackStatus = async (
   presence: 'away' | 'auto',
   dndMinutes: number
 ): Promise<void> => {
+  logger.info({ emoji, message, presence, dndMinutes }, 'Set Slack status');
   await slack.users.setPresence({
     presence,
   });
@@ -15,7 +17,9 @@ export const setSlackStatus = async (
     profile: JSON.stringify({
       status_emoji: emoji,
       status_text: message,
-      status_expiration: dndMinutes ? new Date(Date.now() + dndMinutes * 60 * 1000) : 0
+      status_expiration: dndMinutes
+        ? new Date(Date.now() + dndMinutes * 60 * 1000)
+        : 0,
     }),
   });
   if (dndMinutes) {
@@ -28,5 +32,6 @@ export const setSlackStatus = async (
 };
 
 export const resetSlackStatus = async () => {
+  logger.info('Reset Slack status');
   await setSlackStatus('', '', 'auto', 0);
 };
