@@ -29,7 +29,7 @@ export default {
             `Doing focused work right now. Next break at: ${expireTime.toLocaleTimeString(
               'en-GB',
               {
-                timeZone: process.env.TIMEZONE_NAME,
+                timeZone: process.env.TZ,
                 hour: '2-digit',
                 minute: '2-digit',
               }
