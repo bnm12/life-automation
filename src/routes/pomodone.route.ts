@@ -91,8 +91,10 @@ export default {
       }
       response.status(200).send(request.body).end(); // Responding is important
     } catch (error) {
+      request.log.error(error)
       response.status(501).send(error).end();
     }*/
+    response.status(200).send(request.body).end(); // Responding is important
   },
   path: '/pomodone',
 } as RouteDefinition;
