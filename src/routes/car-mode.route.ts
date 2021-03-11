@@ -6,6 +6,7 @@ export default {
   method: 'post',
   handler: async (request, response) => {
     request.log.info(request.body);
+    response.status(200).send(request.body).end(); // Responding is important
     try {
       if (request.body.status) {
         await setSlackStatus(
@@ -24,9 +25,8 @@ export default {
         await resetSlackStatus();
         await resetDiscordStatus();
       }
-      response.status(200).send(request.body).end(); // Responding is important
     } catch (error) {
-      response.status(501).send(error).end();
+      request.log.error(error);
     }
   },
   path: '/car-mode',

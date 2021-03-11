@@ -6,14 +6,16 @@ export default {
   method: 'post',
   handler: async (request, response) => {
     request.log.info(request.body);
-    /*try {
+    response.status(200).send(request.body).end(); // Responding is important
+    try {
       const taskTitle = request.body.card.title; // TODO: might not have a card
-      const minutes = Math.ceil((request.body.timer?.duration ?? request.body.time_remaining ?? 0) / 60);
+      const minutes = Math.ceil(
+        (request.body.timer?.duration ?? request.body.time_remaining ?? 0) / 60
+      );
       const expireTime = new Date(Date.now() + minutes * 60 * 1000);
 
       switch (request.body.action) {
         case 'timerStart':
-
           await setSlackStatus(
             ':tomato:',
             `on "${taskTitle}" for ${minutes} min. DND please`,
@@ -69,7 +71,6 @@ export default {
           );
           break;
         case 'cardDone':
-
           // TODO: Trello integration
 
           await setSlackStatus(
@@ -79,22 +80,14 @@ export default {
             5
           );
 
-          await setDiscordStatus(
-            '✅',
-            `Just finished focus task`,
-            'online',
-            5
-          );
+          await setDiscordStatus('✅', `Just finished focus task`, 'online', 5);
           break;
         default:
           break;
       }
-      response.status(200).send(request.body).end(); // Responding is important
     } catch (error) {
-      request.log.error(error)
-      response.status(501).send(error).end();
-    }*/
-    response.status(200).send(request.body).end(); // Responding is important
+      request.log.error(error);
+    }
   },
   path: '/pomodone',
 } as RouteDefinition;

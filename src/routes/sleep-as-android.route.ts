@@ -6,6 +6,7 @@ export default {
   method: 'post',
   handler: async (request, response) => {
     request.log.info(request.body);
+    response.status(200).send(request.body).end(); // Responding is important
     try {
       switch (request.body.event) {
         case 'sleep_tracking_started':
@@ -29,9 +30,8 @@ export default {
         default:
           break;
       }
-      response.status(200).send(request.body).end(); // Responding is important
     } catch (error) {
-      response.status(501).send(error).end();
+      request.log.error(error);
     }
   },
   path: '/sleep-as-android',
