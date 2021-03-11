@@ -6,7 +6,7 @@ export default {
   method: 'post',
   handler: async (request, response) => {
     request.log.info(request.body);
-    try {
+    /*try {
       const taskTitle = request.body.card.title; // TODO: might not have a card
       const minutes = Math.ceil((request.body.timer?.duration ?? request.body.time_remaining ?? 0) / 60);
       const expireTime = new Date(Date.now() + minutes * 60 * 1000);
@@ -92,7 +92,7 @@ export default {
       response.status(200).send(request.body).end(); // Responding is important
     } catch (error) {
       response.status(501).send(error).end();
-    }
+    }*/
   },
   path: '/pomodone',
 } as RouteDefinition;
