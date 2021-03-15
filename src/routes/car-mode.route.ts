@@ -19,7 +19,7 @@ export default {
         await setDiscordStatus(
           '🚗',
           'Out driving, expect slow responses',
-          'online',
+          'idle',
           24 * 60
         );
       } else {

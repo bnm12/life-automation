@@ -4,7 +4,7 @@ import { logger } from '../util/logger';
 export const setDiscordStatus = async (
   emoji: string,
   message: string,
-  status: 'dnd' | 'online',
+  status: 'dnd' | 'idle' | 'online' | 'invisible',
   minutes: number
 ): Promise<void> => {
   logger.info({ emoji, message, status, minutes }, 'Set Discord status');
