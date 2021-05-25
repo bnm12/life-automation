@@ -8,10 +8,8 @@ export default {
     request.log.info(request.body, request.body.action);
     response.status(200).send(request.body).end(); // Responding is important
     try {
-      const taskTitle = request.body.card.title; // TODO: might not have a card
-      const minutes = Math.ceil(
-        (request.body.timer?.duration ?? request.body.time_remaining ?? 0) / 60
-      );
+      const taskTitle = request.body.name;
+      const minutes = request.body.minutes ?? 0;
       const expireTime = new Date(Date.now() + minutes * 60 * 1000);
 
       switch (request.body.action) {
@@ -44,7 +42,7 @@ export default {
             `on "${taskTitle}" (PAUSED)`,
             'auto',
             0,
-            true
+            false
           );
 
           await setDiscordStatus(
