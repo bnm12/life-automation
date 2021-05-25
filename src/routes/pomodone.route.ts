@@ -12,7 +12,7 @@ export default {
       const minutes = request.body.minutes ?? 0;
       const expireTime = new Date(Date.now() + minutes * 60 * 1000);
 
-      switch (request.body.action) {
+      switch (request.body.eventType) {
         case 'timerStart':
           await setSlackStatus(
             ':tomato:',
