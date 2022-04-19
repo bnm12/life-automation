@@ -1,15 +1,15 @@
-import axios from 'axios';
-import { logger } from '../util/logger';
+import axios from "axios";
+import { logger } from "../util/logger";
 
 export const setDiscordStatus = async (
   emoji: string,
   message: string,
-  status: 'dnd' | 'idle' | 'online' | 'invisible',
+  status: "dnd" | "idle" | "online" | "invisible",
   minutes: number
 ): Promise<void> => {
-  logger.info({ emoji, message, status, minutes }, 'Set Discord status');
+  logger.info({ emoji, message, status, minutes }, "Set Discord status");
   await axios.patch(
-    'https://discord.com/api/v8/users/@me/settings',
+    "https://discord.com/api/v9/users/@me/settings",
     {
       status,
       custom_status: {
@@ -29,11 +29,11 @@ export const setDiscordStatus = async (
 };
 
 export const resetDiscordStatus = async (): Promise<void> => {
-  logger.info('Reset Discord status');
+  logger.info("Reset Discord status");
   await axios.patch(
-    'https://discord.com/api/v8/users/@me/settings',
+    "https://discord.com/api/v9/users/@me/settings",
     {
-      status: 'online',
+      status: "online",
       custom_status: null,
     },
     {
